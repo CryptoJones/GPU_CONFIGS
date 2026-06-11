@@ -97,6 +97,7 @@ benchmarks.md / .csv     # all measured numbers incl. the tuning sweep
 charts/*.png             # before/after, tuning sweep, VRAM placement (+ make_charts.py)
 logs/                    # captured gpu-state, toolchain versions, host info
 IMPLEMENTATION.md        # step-by-step runbook for a Claude Code agent to rebuild this
+FUTURE_UPGRADES.md       # bigger-model shortlist for when the V100 lands (28GB)
 repopulate.sh            # fills __LAN_IP__/__HOSTNAME__ placeholders for install (run first)
 ```
 
