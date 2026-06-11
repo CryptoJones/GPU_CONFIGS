@@ -15,7 +15,7 @@ config files, the benchmarks and charts that justify it, captured system logs, a
 
 | Date | Host | Summary |
 |---|---|---|
-| [2026-06-11 - PLUTO](./2026-06-11%20-%20PLUTO/) | pluto (Rocky 9.8) | Uncensored Qwen3-30B-A3B served on dual GPUs (RTX 3060 + GTX 1080) via llama.cpp, wired to Hermes. ~10× faster than single-GPU; tool calls 15 min → 3 s. |
+| [2026-06-11 - PLUTO](./2026-06-11%20-%20PLUTO/) | PLUTO (Rocky 9.8) | Uncensored Qwen3-30B-A3B served on dual GPUs (RTX 3060 + GTX 1080) via llama.cpp, wired to Hermes. ~10× faster than single-GPU; tool calls 15 min → 3 s. |
 
 ## How to use a snapshot to revert/reproduce
 1. Open the folder's `README.md` for the what/why/results.

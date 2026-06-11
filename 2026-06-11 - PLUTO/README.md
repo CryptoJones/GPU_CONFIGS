@@ -1,11 +1,11 @@
 # 2026-06-11 — PLUTO: uncensored Qwen3-30B served on dual GPUs, wired to Hermes
 
-**Host:** `pluto` (Rocky Linux 9.8, booted into Linux side), user `akclark`, LAN IP `172.16.28.162`
+**Host:** `__HOSTNAME__` (Rocky Linux 9.8, booted into Linux side), user `akclark`, LAN IP `__LAN_IP__`
 **Goal:** serve an uncensored Qwen model on the local network as an OpenAI-compatible
 endpoint, wire the Hermes agent to it, and make it fast enough for agent/tool use.
 
 This folder is a **drop-in snapshot**. To rebuild this exact configuration on a fresh
-machine (or revert pluto to it), hand [`IMPLEMENTATION.md`](IMPLEMENTATION.md) to a
+machine (or revert __HOSTNAME__ to it), hand [`IMPLEMENTATION.md`](IMPLEMENTATION.md) to a
 Claude Code agent along with the files in [`configs/`](configs/).
 
 ---
@@ -31,7 +31,7 @@ Claude Code agent along with the files in [`configs/`](configs/).
     copied to NVMe at `/home/akclark/models/qwen3-abliterated-30b-Q4_K_M.gguf`.
   - 30B Mixture-of-Experts, ~3B active params/token, native context **40960**.
 - **Engine:** `llama.cpp` `llama-server` (OpenAI-compatible `/v1`), **not vLLM** — see "Why llama.cpp".
-- **Endpoint:** `http://172.16.28.162:8081/v1` (firewall port 8081/tcp open), model id `qwen3-abliterated-30b`.
+- **Endpoint:** `http://__LAN_IP__:8081/v1` (firewall port 8081/tcp open), model id `qwen3-abliterated-30b`.
 - **Service:** user-level systemd unit `llama-qwen` (linger-enabled, boot-persistent).
 - **Agent:** Hermes Agent v0.16.0 at `/home/akclark/hermes-agent`, config `~/.hermes/config.yaml`,
   `hermes` on PATH via `~/.local/bin/hermes` symlink.
@@ -97,4 +97,9 @@ benchmarks.md / .csv     # all measured numbers incl. the tuning sweep
 charts/*.png             # before/after, tuning sweep, VRAM placement (+ make_charts.py)
 logs/                    # captured gpu-state, toolchain versions, host info
 IMPLEMENTATION.md        # step-by-step runbook for a Claude Code agent to rebuild this
+repopulate.sh            # fills __LAN_IP__/__HOSTNAME__ placeholders for install (run first)
 ```
+
+> **Note:** this public snapshot is scrubbed — the live host's IP and hostname are replaced
+> with `__LAN_IP__` / `__HOSTNAME__` placeholders. Run [`repopulate.sh`](repopulate.sh) after
+> cloning to fill them in (auto-detects, or pass `--ip` / `--host`).

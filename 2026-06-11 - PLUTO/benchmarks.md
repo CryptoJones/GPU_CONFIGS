@@ -1,6 +1,6 @@
 # Benchmarks — 2026-06-11 PLUTO
 
-All numbers measured on pluto (RTX 3060 12GB + GTX 1080 8GB, Ryzen 5 5600X, 128GB).
+All numbers measured on __HOSTNAME__ (RTX 3060 12GB + GTX 1080 8GB, Ryzen 5 5600X, 128GB).
 Method: `POST /v1/chat/completions` with a ~2.4K-token prompt, reading llama.cpp's
 `timings.prompt_per_second` (prefill) and `timings.predicted_per_second` (generation).
 Raw data in [`benchmarks.csv`](benchmarks.csv).

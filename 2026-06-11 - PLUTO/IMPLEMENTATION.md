@@ -1,6 +1,6 @@
 # IMPLEMENTATION — rebuild the 2026-06-11 PLUTO config
 
-**Audience:** a Claude Code agent (or a human) reproducing this setup on pluto-Linux or a
+**Audience:** a Claude Code agent (or a human) reproducing this setup on __HOSTNAME__-Linux or a
 similar host. Read this top-to-bottom; the files in `configs/` are the drop-in artifacts.
 Verify every path/UUID against the live machine before trusting it — hardware UUIDs and IPs
 are host-specific (see `logs/gpu-state.txt`, `logs/host.txt`).
@@ -10,9 +10,21 @@ Uncensored Qwen3-30B-A3B served on `0.0.0.0:8081` (OpenAI `/v1`) across **both**
 llama.cpp, as a boot-persistent **user** systemd service, with Hermes Agent pointed at it.
 Expected: prefill ~1000 tok/s, gen ~45 tok/s, tool calls ~3 s.
 
+## Step 0 — populate placeholders
+This public snapshot ships with `__LAN_IP__` and `__HOSTNAME__` placeholders instead of the
+original host's network coordinates. Fill them in for your machine first:
+```bash
+./repopulate.sh                 # auto-detect this host's LAN IP + short hostname
+./repopulate.sh --dry-run       # preview without editing
+./repopulate.sh --ip 10.0.0.5 --host mybox   # or set them explicitly
+```
+(These placeholders are only in the docs — the actual `configs/` bind `0.0.0.0` / `localhost`,
+so they don't block installation; populating just makes the endpoint URLs correct for your LAN.)
+Don't commit the populated files back to the public repo.
+
 ## Preconditions to check first
 - GPUs present: `nvidia-smi -L` → expect an Ampere card (sm_86) + the Pascal GTX 1080 (sm_61).
-  **Get the real UUIDs** here; the ones in `configs/serve-qwen.sh` are pluto-specific.
+  **Get the real UUIDs** here; the ones in `configs/serve-qwen.sh` are __HOSTNAME__-specific.
 - Driver supports CUDA 13 (`nvidia-smi` top-right). Driver stays untouched throughout.
 - `git`, `gcc/g++`, `make`, `cmake` present (`dnf install cmake` if missing).
 - SELinux state: `getenforce`. If `Enforcing`, you MUST use a **user** systemd service
