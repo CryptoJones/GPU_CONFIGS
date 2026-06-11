@@ -1,5 +1,9 @@
 # GPU_CONFIGS
 
+[![snapshot: 2026-06-11 PLUTO](https://img.shields.io/badge/snapshot-2026--06--11_PLUTO-1f6feb?logo=nvidia&logoColor=white)](./2026-06-11%20-%20PLUTO/)
+
+> **The config that worked, captured the day it worked — drop in the files, hand the runbook to an agent, rebuild it anywhere.**
+
 Versioned snapshots of working local-LLM / GPU serving configurations across the fleet.
 
 Each dated folder is a **self-contained, drop-in snapshot** of one machine's setup: the actual
