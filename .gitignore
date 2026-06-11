@@ -1,0 +1,4 @@
+# chart-generation virtualenv (regenerate with: uv venv .charts-venv && uv pip install matplotlib)
+.charts-venv/
+__pycache__/
+*.pyc

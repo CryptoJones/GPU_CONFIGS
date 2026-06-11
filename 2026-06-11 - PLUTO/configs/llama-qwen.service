@@ -1,0 +1,18 @@
+[Unit]
+Description=llama.cpp server - Qwen3-30B-A3B abliterated (OpenAI-compatible)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/home/akclark/models/serve-qwen.sh
+Restart=on-failure
+RestartSec=5
+# Tunables (override without editing the script):
+# Environment=N_CPU_MOE=24
+# Environment=CTX=16384
+# Environment=PORT=8081
+# Environment=CUDA_VISIBLE_DEVICES=0
+
+[Install]
+WantedBy=default.target

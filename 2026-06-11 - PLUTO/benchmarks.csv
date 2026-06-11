@@ -1,0 +1,8 @@
+stage,config,gpus,ctx,n_cpu_moe,tensor_split,kv,prefill_toks,gen_toks,tool_call,fit,notes
+before,single-GPU CUDA13,3060 only,40960,30,n/a,q8_0,700,4.5,~15min(hung),yes,"experts on CPU; agent unusable"
+attempt1,dual-GPU,3060+1080,40960,8,0.55/0.45,q8_0,0,0,n/a,no,"OOM on 1080 (KV) — too much on small card"
+attempt2,dual-GPU,3060+1080,32768,16,0.62/0.38,q8_0,857,40.0,ok,yes,"fit; 1080 nearly full, 3060 5GB idle"
+attempt3,dual-GPU,3060+1080,32768,8,0.78/0.22,q8_0,0,0,n/a,no,"OOM on 3060 (overcorrected both knobs)"
+attempt4,dual-GPU,3060+1080,32768,12,0.72/0.28,q8_0,1006,45.3,3.1s,yes,"balanced; the working split"
+yarn64k,dual-GPU,3060+1080,65536(yarn),16,0.68/0.32,q8_0,906,40.5,ok,yes,"clamped to native 40960; slower; no real gain"
+FINAL,dual-GPU,3060+1080,40960,12,0.72/0.28,q8_0,1015,45.6,3.1s,yes,"native max window; best speed+context; LIVE"

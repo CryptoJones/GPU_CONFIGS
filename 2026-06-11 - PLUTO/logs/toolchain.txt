@@ -1,0 +1,25 @@
+# Toolchain 2026-06-11T06:24:32Z
+## nvcc 12.9 (used for the dual-GPU build)
+Built on Tue_May_27_02:21:03_PDT_2025
+Cuda compilation tools, release 12.9, V12.9.86
+Build cuda_12.9.r12.9/compiler.36037853_0
+
+## nvcc 13.0 (single-GPU fallback build)
+Built on Wed_Aug_20_01:58:59_PM_PDT_2025
+Cuda compilation tools, release 13.0, V13.0.88
+Build cuda_13.0.r13.0/compiler.36424714_0
+
+## llama.cpp commit
+ac4cdde vendor : update LibreSSL to 4.3.2 (#24397)
+
+## binaries
+-rwxr-xr-x. 1 akclark akclark 17448 Jun 11 01:03 /home/akclark/llama.cpp/build/bin/llama-server
+-rwxr-xr-x. 1 akclark akclark 17448 Jun 11 02:08 /home/akclark/llama.cpp/build-multigpu/bin/llama-server
+
+## multigpu binary CUDA linkage
+	libcudart.so.12 => /usr/local/cuda-12/targets/x86_64-linux/lib/libcudart.so.12 (0x00007f4eb0a00000)
+	libcublas.so.12 => /usr/local/cuda-12/targets/x86_64-linux/lib/libcublas.so.12 (0x00007f4eaa200000)
+	libcublasLt.so.12 => /usr/local/cuda-12/targets/x86_64-linux/lib/libcublasLt.so.12 (0x00007f4e72000000)
+
+## hermes
+Hermes Agent v0.16.0 (2026.6.5) · upstream 4d22b829

@@ -1,0 +1,16 @@
+model:
+  default: qwen3-abliterated-30b
+  provider: custom
+  context_length: 65536
+  base_url: http://localhost:8081/v1
+  api_mode: chat_completions
+providers:
+  custom:
+    api: http://localhost:8081/v1
+    default_model: qwen3-abliterated-30b
+    api_mode: chat_completions
+fallback_providers: []
+auxiliary:
+  compression:
+    context_length: 65536
+    provider: auto

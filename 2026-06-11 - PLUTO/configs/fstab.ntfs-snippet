@@ -1,0 +1,3 @@
+# --- NTFS HDDs (added 2026-06-11) ---
+UUID=281CF9131CF8DD2E  /mnt/hdd2  ntfs-3g  rw,uid=1000,gid=1000,umask=022,nofail                   0 0
+UUID=8E544E10544DFC09  /mnt/hdd1  ntfs-3g  rw,uid=1000,gid=1000,umask=022,remove_hiberfile,nofail  0 0

@@ -1,0 +1,19 @@
+# Captured 2026-06-11T06:24:32Z
+## nvidia-smi -L
+GPU 0: NVIDIA GeForce GTX 1080 (UUID: GPU-72be24e0-0677-7518-5c1a-effc1b25f2ea)
+GPU 1: NVIDIA GeForce RTX 3060 (UUID: GPU-2400d806-cea5-c683-f4ad-459c4a156986)
+
+## compute caps + memory
+index, name, compute_cap, memory.total [MiB], driver_version
+0, NVIDIA GeForce GTX 1080, 6.1, 8192 MiB, 580.159.04
+1, NVIDIA GeForce RTX 3060, 8.6, 12288 MiB, 580.159.04
+
+## live VRAM (running service)
+index, name, memory.used [MiB], memory.free [MiB]
+0, NVIDIA GeForce GTX 1080, 5459 MiB, 2649 MiB
+1, NVIDIA GeForce RTX 3060, 10505 MiB, 1403 MiB
+
+## compute apps
+pid, process_name, used_gpu_memory [MiB], gpu_uuid
+700614, /home/akclark/llama.cpp/build-multigpu/bin/llama-server, 5438 MiB, GPU-72be24e0-0677-7518-5c1a-effc1b25f2ea
+700614, /home/akclark/llama.cpp/build-multigpu/bin/llama-server, 10496 MiB, GPU-2400d806-cea5-c683-f4ad-459c4a156986

@@ -1,0 +1,32 @@
+# CPU / RAM / disks 2026-06-11T06:24:32Z
+## CPU
+CPU(s):                                  12
+Model name:                              AMD Ryzen 5 5600X 6-Core Processor
+Thread(s) per core:                      2
+Core(s) per socket:                      6
+CPU(s) scaling MHz:                      100%
+Flags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 invpcid cqm rdt_a rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local user_shstk clzero irperf xsaveerptr rdpru wbnoinvd arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif v_spec_ctrl umip pku ospke vaes vpclmulqdq rdpid overflow_recov succor smca debug_swap
+
+## RAM
+               total        used        free      shared  buff/cache   available
+Mem:           125Gi       4.3Gi        79Gi       264Mi        43Gi       120Gi
+
+## disks
+sda                           4.5T disk                        
+├─sda1                        100M part vfat                   
+├─sda2                          1M part                        
+├─sda3                         15M part                        
+├─sda4                        4.5T part ntfs        /mnt/hdd1  
+└─sda5                        509M part ntfs                   
+sdb                           4.5T disk                        
+├─sdb1                          1M part                        
+├─sdb2                         15M part                        
+└─sdb3                        4.5T part ntfs        /mnt/hdd2  APPS
+nvme0n1                     465.8G disk                        
+├─nvme0n1p1                   600M part vfat        /boot/efi  
+├─nvme0n1p2                     1G part xfs         /boot      
+└─nvme0n1p3                 464.2G part LVM2_member            
+
+## fstab NTFS lines
+UUID=281CF9131CF8DD2E  /mnt/hdd2  ntfs-3g  rw,uid=1000,gid=1000,umask=022,nofail                   0 0
+UUID=8E544E10544DFC09  /mnt/hdd1  ntfs-3g  rw,uid=1000,gid=1000,umask=022,remove_hiberfile,nofail  0 0
