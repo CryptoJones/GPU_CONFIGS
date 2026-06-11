@@ -1,6 +1,7 @@
 # GPU_CONFIGS
 
 [![snapshot: 2026-06-11 PLUTO](https://img.shields.io/badge/snapshot-2026--06--11_PLUTO-1f6feb?logo=nvidia&logoColor=white)](./2026-06-11%20-%20PLUTO/)
+[![generation: 45.6 tok/s](https://img.shields.io/badge/generation-4.5_%E2%86%92_45.6_tok%2Fs-2ea043?logo=speedtest&logoColor=white)](./2026-06-11%20-%20PLUTO/benchmarks.md)
 
 > **The config that worked, captured the day it worked — drop in the files, hand the runbook to an agent, rebuild it anywhere.**
 
