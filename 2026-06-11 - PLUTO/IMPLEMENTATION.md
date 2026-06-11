@@ -104,8 +104,47 @@ overflows. Tool-call test (the thing that was broken): `hermes -z "list files in
 should return a real listing (uses the filesystem tool).
 
 ## Reverting / variants
-- **Remove the 1080** (e.g. V100 swap): set `LLAMA_BIN` to `build/bin/llama-server` (CUDA13,
-  sm_86), drop `--tensor-split`, raise `N_CPU_MOE` until it fits one card; `systemctl --user restart`.
+- **Single-GPU fallback** (only the 3060, no second card): set `LLAMA_BIN` to
+  `build/bin/llama-server` (CUDA13, sm_86), drop `--tensor-split`, raise `N_CPU_MOE` until it
+  fits one card; `systemctl --user restart`.
 - **OOM after any change:** raise `N_CPU_MOE` (+2 at a time) or lower `CTX`.
 - **Manage:** `XDG_RUNTIME_DIR=/run/user/$(id -u) systemctl --user {status,restart} llama-qwen`,
   logs via `journalctl --user -u llama-qwen -f`.
+
+## Variant — swap the 1080 for a Tesla V100 16 GB (upgrade path)
+The V100 (Volta, **`sm_70`**, 16 GB HBM2 ~900 GB/s, tensor cores) is faster than *both* current
+cards and, paired with the 3060, gives **12 + 16 = 28 GB** — enough to hold the whole 18.5 GB
+model + KV **entirely on GPU** (`n-cpu-moe 0`, no CPU spill). It becomes the main/fast card.
+
+**1. Rebuild for sm_70.** The V100 is a *different* arch than the 1080 (`sm_61`) — the existing
+`build-multigpu` binary will NOT run on it. The **already-installed CUDA 12.9** supports Volta,
+so no new toolkit — just recompile (CUDA 13 won't work; it dropped the older archs):
+```bash
+cd /home/akclark/llama.cpp
+export PATH=/usr/local/cuda-12.9/bin:$PATH CUDACXX=/usr/local/cuda-12.9/bin/nvcc
+cmake -B build-multigpu -DGGML_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES="70;86" \
+      -DCMAKE_BUILD_TYPE=Release -DLLAMA_CURL=OFF \
+      -DCMAKE_CUDA_COMPILER=/usr/local/cuda-12.9/bin/nvcc
+cmake --build build-multigpu --config Release -j "$(nproc)" --target llama-server
+# during a transition where BOTH the 1080 and V100 are present, use "70;61;86".
+```
+
+**2. Reconfigure the split** in `serve-qwen.sh`. With 28 GB you no longer need CPU offload:
+- `N_CPU_MOE=0` (everything on GPU), and you can drop the KV quant for full quality:
+  `KV_TYPE=f16`, or raise `CTX` toward the native `40960` / beyond.
+- Weight the split toward the faster, larger V100 and make it the main GPU. Starting point:
+  `TENSOR_SPLIT=0.40,0.60` (3060 : V100) — then tune by VRAM (see Step 5).
+- Update `CUDA_VISIBLE_DEVICES` to the **new** UUIDs from `nvidia-smi -L`, ordered with the
+  card you want as CUDA0 first. (If you make the V100 main, put its UUID first and flip the
+  split to match.) Consider `--main-gpu` to pin the KV/compute buffers to the V100.
+
+**3. Expected result:** generation well past the current ~45 tok/s (plausibly 60-90 with
+everything on-GPU + tensor cores), faster prefill, simpler config. Re-run `benchmarks.md`'s
+method to confirm and record a new snapshot folder.
+
+**4. Hardware checklist (V100 is a passive server card):**
+- No fan — add a blower/shroud + airflow or it thermal-throttles.
+- No display output — keep the 3060 for video.
+- ~250 W via an **EPS-style 8-pin** (not standard PCIe) — correct adapter/PSU.
+- Enable **Above 4G Decoding / large-BAR** in BIOS (B550 supports it).
+- The board's 2nd x16 slot is electrically **PCIe 3.0 x4** — only affects load/transfer.
